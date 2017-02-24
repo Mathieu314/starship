@@ -1,0 +1,45 @@
+background yes
+use_xft yes
+xftfont Sans:size=8
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type normal
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 400 40 
+maximum_width 710
+maximum_height 40
+draw_shades yes
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+default_color 52B4BA
+default_shade_color black
+default_outline_color white
+alignment top_left
+gap_x 450
+gap_y 120
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale no
+
+TEXT
+${if_existing /tmp/left-red 1}
+${image /root/.conky/images/left-red.png -s 50x40 -p 0,0}
+${else}
+${image /root/.conky/images/left-normal.png -s 50x40 -p 0,0}
+${endif}
+${if_existing /tmp/middle-red 1}
+${image /root/.conky/images/middle-red.png -s 300x40 -p 51,0}
+${else}
+${image /root/.conky/images/middle-normal.png -s 300x40 -p 51,0}
+${endif}
+${if_existing /tmp/right-red 1}
+${image /root/.conky/images/right-red.png -s 50x40 -p 351,0}
+${else}
+${image /root/.conky/images/right-normal.png -s 50x40 -p 351,0}
+${endif}

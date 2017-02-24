@@ -1,0 +1,130 @@
+#!/bin/bash
+
+
+function change_file () {
+	if [ $1 == 'planets' ]
+		then
+		file='world'
+	else
+		file='ship'
+	fi
+	var=$(cat /root/.conky/$file$3 | grep gap_x)
+	var2=$(cat /root/.conky/$1/base_file | grep gap_x)
+	x=$(echo -n ${var:6})
+	x2=$(echo -n ${var2:6})
+	sed -i -e 's/gap_x '"$x2"'/gap_x '"$x"'/g' /root/.conky/$1/base_file
+	var=$(cat /root/.conky/$file$3 | grep gap_y)
+	var2=$(cat /root/.conky/$1/base_file | grep gap_y)
+	y=$(echo -n ${var:6})
+	y2=$(echo -n ${var2:6})
+	sed -i -e 's/gap_y '"$y2"'/gap_y '"$y"'/g' /root/.conky/$1/base_file
+}
+
+if [ $1 == '-p' ]
+then
+	if [ $2 == 'list' ]
+	then
+		ls /root/.conky/planets/
+	else
+		change_file 'planets' $2
+		cat /root/.conky/planets/base_file /root/.conky/planets/$2 > /root/.conky/world
+		pkill -f "/bin/bash /root/.conky/click.sh"
+		sleep 2
+		/bin/bash /root/.conky/click.sh > /dev/null &
+	fi
+fi
+
+if [[ "$1" =~ "-p"+[0-9] ]]
+then
+	if [ $2 == 'list' ]
+	then
+		ls /root/.conky/planets/
+	else
+		change_file 'planets' $2 ${1:2}
+		cat /root/.conky/planets/base_file /root/.conky/planets/$2 > /root/.conky/world
+		pkill -f "/bin/bash /root/.conky/click.sh"
+		sleep 2
+		/bin/bash /root/.conky/click.sh > /dev/null &
+	fi
+fi
+
+if [ $1 == '-s' ]
+then
+	if [ $2 == 'list' ]
+	then
+		ls /root/.conky/ships/
+	else
+		change_file 'ships' $2
+		cat /root/.conky/ships/base_file /root/.conky/ships/$2 > /root/.conky/ship
+		pkill -f "/bin/bash /root/.conky/click.sh"
+		sleep 2
+		/bin/bash /root/.conky/click.sh > /dev/null &
+	fi
+fi
+
+if [[ "$1" =~ "-s"+[0-9] ]]
+then
+	if [ $2 == 'list' ]
+	then
+		ls /root/.conky/ships/
+	else
+		change_file 'ships' $2 ${1:2}
+		cat /root/.conky/ships/base_file /root/.conky/ships/$2 > /root/.conky/ship${1:2}
+		pkill -f "/bin/bash /root/.conky/click.sh"
+		sleep 2
+		/bin/bash /root/.conky/click.sh > /dev/null &
+	fi
+fi
+
+if [ $1 == '-px' ]
+	then
+	var=$(cat /root/.conky/image_world | grep gap_x)
+	x=$(echo -n ${var:6})
+	posx=$(( $x + $2 ))
+	sed -i -e 's/gap_x '"$x"'/gap_x '"$posx"'/g' /root/.conky/image_world
+	var=$(cat /root/.conky/world | grep gap_x)
+	x=$(echo -n ${var:6})
+	posx=$(( $x + $2 ))
+	sed -i -e 's/gap_x '"$x"'/gap_x '"$posx"'/g' /root/.conky/world
+fi
+
+if [ $1 == '-sx' ]
+	then
+	var=$(cat /root/.conky/image_ship | grep gap_x)
+	x=$(echo -n ${var:6})
+	posx=$(( $x + $2 ))
+	sed -i -e 's/gap_x '"$x"'/gap_x '"$posx"'/g' /root/.conky/image_ship
+	var=$(cat /root/.conky/ship | grep gap_x)
+	x=$(echo -n ${var:6})
+	sleep 1
+	sed -i -e 's/gap_x '"$x"'/gap_x '"$posx"'/g' /root/.conky/ship
+fi
+
+if [ $1 == '-py' ]
+	then
+	var=$(cat /root/.conky/image_world | grep gap_y)
+	y=$(echo -n ${var:6})
+	posy=$(( $y + $2 ))
+	sed -i -e 's/gap_y '"$y"'/gap_y '"$posy"'/g' /root/.conky/image_world
+	var=$(cat /root/.conky/world | grep gap_y)
+	y=$(echo -n ${var:6})
+	posy=$(( $y + $2 ))
+	sed -i -e 's/gap_y '"$y"'/gap_y '"$posy"'/g' /root/.conky/world
+fi
+
+if [ $1 == '-sy' ]
+	then
+	var=$(cat /root/.conky/image_ship | grep gap_y)
+	y=$(echo -n ${var:6})
+	posy=$(( $y + $2 ))
+	sed -i -e 's/gap_y '"$y"'/gap_y '"$posy"'/g' /root/.conky/image_ship
+	var=$(cat /root/.conky/ship | grep gap_y)
+	y=$(echo -n ${var:6})
+	posy=$(( $y + $2 ))
+	sed -i -e 's/gap_y '"$y"'/gap_y '"$posy"'/g' /root/.conky/ship
+fi
+
+if [ $1 == '-dc' ]
+then
+    echo $2 > /tmp/$3-red
+fi

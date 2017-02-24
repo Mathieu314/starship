@@ -1,0 +1,13 @@
+lua_load /root/.conky/script.lua
+lua_draw_hook_pre conky_main 203 135
+
+TEXT
+${voffset 20}
+SHIP ${hr 3}
+Name: $alignr HMS Hector
+Type: $alignr Battlecruiser
+Affiliation: $alignr Star Kingdom of
+$alignr Manticore
+Mass: $alignr 834 000 tons
+Length: $alignr 700 m
+Acceleration: $alignr 490 G

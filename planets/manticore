@@ -1,0 +1,14 @@
+lua_load /root/.conky/script.lua
+lua_draw_hook_pre conky_main 203 150
+
+TEXT
+${voffset 20}
+PLANET ${hr 3}
+Name: $alignr Manticore A-III
+Location: $alignr Manticore-A System
+Affiliation: $alignr Star Empire of
+$alignr Manticore
+Capital: $alignr Landing
+Population: $alignr 1.5 Billion
+Diameter: $alignr 12.992 km
+Gravity: $alignr 1.01 G

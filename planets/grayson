@@ -1,0 +1,14 @@
+lua_load /root/.conky/script.lua
+lua_draw_hook_pre conky_main 224 150
+
+TEXT
+${voffset 20}
+PLANET ${hr 3}
+Name: $alignr Grayson
+Location: $alignr Yelstin's Star System
+Affiliation: $alignr Protectorate of
+$alignr Grayson
+Capital: $alignr Austin City
+Population: $alignr 3 Billion
+Diameter: $alignr 12.484 km
+Gravity: $alignr 1.17 4

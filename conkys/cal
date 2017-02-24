@@ -1,0 +1,37 @@
+background yes
+use_xft yes
+xftfont Dejavu Sans Mono:size=7.867
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+#own_window_argb_visual yes
+#own_window_argb_value 150
+own_window_type normal
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 60 10
+maximum_width 300
+draw_shades yes
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+default_color 52B4BA
+default_shade_color black
+default_outline_color white
+alignment top_right
+gap_x 300
+gap_y 25
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale no
+
+lua_load /root/.conky/scripts/lua/script.lua
+lua_draw_hook_pre conky_main 125 130
+
+TEXT
+${voffset 20}
+CALENDAR ${hr 4}
+${execpi 60 cal_var=`date +%_d`; cal -m| sed s/"\(^\|[^0-9]\)$cal_var"'\b'/'\1${color white}'"$cal_var"'$color'/}

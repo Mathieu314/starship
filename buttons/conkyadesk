@@ -1,0 +1,231 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+##
+#  ADesk - a Desktop launcher
+#
+#   by ADcomp <david.madbox@gmail.com>
+#      http://www.ad-comp.be/
+#
+#   This program is distributed under the terms of the GNU General Public License
+#   For more info see http://www.gnu.org/licenses/gpl.txt
+##
+
+import os
+import sys
+import gtk
+import cairo
+import getopt
+
+## Default config
+##
+### jpope edit
+### With the conky clock on the right hand side of the screen, I found it easier
+### to set an offset instead of an actual screen position to compensate for different
+### screen resolutions. If you want to set a definate screen position for the X value,
+### comment out lines 27, 28 and 29 and uncomment line 30.
+##
+XOFFST = 1300
+YOFFST = 470
+XOFFST = int(sys.argv[1])
+YOFFST = int(sys.argv[2])
+screenwth  = gtk.gdk.screen_width()
+screenhgth = gtk.gdk.screen_height()
+POS_X = screenwth  - XOFFST
+POS_Y = screenhgth - YOFFST
+
+WIDTH = 16
+HEIGHT = 16
+THEME = 'clockwgt'
+
+## Edit the sleep time within the CMD line to change the timeout for the calendar
+CMD = '~/.conky/buttons/pop'
+##
+
+VER = '0.1'
+
+def check_screen(widget):
+    # To check if the display supports alpha channels, get the colormap
+    screen = widget.get_screen()
+    colormap = screen.get_rgba_colormap()
+    if colormap == None:
+        colormap = screen.get_rgb_colormap()
+        supports_alpha = False
+    else:
+        supports_alpha = True
+    # Now we have a colormap appropriate for the screen, use it
+    widget.set_colormap(colormap)
+    return supports_alpha
+
+def pixbuf_from_file(file, width=None, height=None):
+    pixbuf = None
+
+    if file != None or file == '':
+        if os.path.isfile(file):
+            try:
+                if not width and not height:
+                    pixbuf = gtk.gdk.pixbuf_new_from_file(file)
+                else:
+                    width, height = int(width), int(height)
+                    pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(file, width, height)
+            except:
+                print("is a image ? => %s" % file)
+                pixbuf = None
+        else:
+            print("is a image ? => %s" % file)
+
+    return pixbuf
+
+#-----------------------------------------------------------------------
+class UI():
+#-----------------------------------------------------------------------
+    def __init__(self, x, y, cmd, theme, width, height):
+
+        self.cmd = cmd
+
+        self.create_window()
+        self.supports_alpha = check_screen(self.win)
+        self.win.show_all()
+
+        ## need to change directory
+        SRC_PATH = os.path.dirname(os.path.realpath( __file__ ))
+        os.chdir(SRC_PATH)
+
+        self.pixbuf = []
+        self.pixbuf.append(pixbuf_from_file('themes/%s/basepop.png' % theme,width,height))
+        self.pixbuf.append(pixbuf_from_file('themes/%s/mouseoverpop.png' % theme,width,height))
+        self.pixbuf.append(pixbuf_from_file('themes/%s/clickedpop.png' % theme,width,height))
+
+        os.chdir(os.getenv('HOME'))
+
+        self.mouse_over = False
+        self.toggle = False
+        self.clicked = False
+
+        self.eventbox = gtk.EventBox()
+        self.eventbox.set_visible_window(False)
+        self.eventbox.set_size_request(width,height)
+        self.eventbox.connect("button_press_event", self.win_press_event)
+        self.eventbox.connect("button-release-event", self.win_release)
+        self.eventbox.connect("leave-notify-event", self.win_leave_notify)
+        self.eventbox.connect("enter-notify-event", self.win_enter_notify)
+
+        self.win.resize(width,height)
+        self.win.add(self.eventbox)
+        self.win.move(x, y)
+        self.win.show_all()
+
+    def create_window(self):
+        self.win = gtk.Window()
+
+        self.win.set_title("Bt On/Off")
+        self.win.set_name("bt_onoff")
+        self.win.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DOCK)
+        self.win.set_keep_below(True)
+        self.win.set_keep_above(False)
+        self.win.set_decorated(False)
+        self.win.set_skip_taskbar_hint(True)
+        self.win.set_skip_pager_hint(True)
+        self.win.stick()
+        self.win.set_app_paintable(True)
+
+        self.win.connect("destroy", self.doquit)
+        self.win.connect('expose-event', self.expose)
+
+    def win_press_event(self, widget, event):
+        #~ print('# button_press_event')
+        #~ self.toggle = not self.toggle
+        if event.button==2:
+            self.doquit(widget)
+        else:
+            self.clicked = True
+            self.update()
+
+    def win_release(self, widget, event):
+        #~ print('# button-release-event')
+        #~ self.toggle = not self.toggle
+        self.clicked = False
+        self.update()
+        os.system('%s &' % self.cmd)
+
+    def win_leave_notify(self, widget, event):
+        #~ print('# leave-notify-event')
+        self.mouse_over = False
+        self.update()
+
+    def win_enter_notify(self, widget, event):
+        #~ print('# enter-notify-event')
+        self.mouse_over = True
+        self.update()
+
+    def update(self):
+        self.win.queue_draw()
+        return True
+
+    def expose(self, widget, event):
+        ## Full transparent window
+        cr = widget.window.cairo_create()
+        cr.set_source_rgba(0, 0, 0, 0)
+        cr.set_operator(cairo.OPERATOR_SOURCE)
+        cr.paint()
+        cr.set_operator(cairo.OPERATOR_OVER)
+        x, y, width, height = widget.get_allocation()
+        #~ self.draw_shape(cr, x+1, y+1, width-2, height-2)
+        if self.clicked:
+            cr.set_source_pixbuf(self.pixbuf[2], 0, 0)
+        else:
+            if self.mouse_over:
+                cr.set_source_pixbuf(self.pixbuf[1], 0, 0)
+            else:
+                cr.set_source_pixbuf(self.pixbuf[0], 0, 0)
+        cr.paint()
+
+    def doquit(self, widget, data=None):
+        gtk.main_quit()
+
+    def run(self):
+        gtk.main()
+
+def usage():
+    print
+    print 'Usage : %s -s <width>x<height> -x <pos> -y <pos> -t <theme> -c <cmd>' % sys.argv[0]
+    print
+    print 'ex : %s -s 64x64 -x 40 -y 120 -t home -c "thunar"' % sys.argv[0]
+
+if __name__ == "__main__":
+    # set default config before ..
+    x, y, cmd, theme, width, height = POS_X, POS_Y, CMD, THEME, WIDTH, HEIGHT
+
+    # read options
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "hs:x:y:c:t:", ["help"])
+    except getopt.GetoptError, err:
+        # print help information and exit:
+        print str(err) # will print something like "option -a not recognized"
+        usage()
+        sys.exit(2)
+
+    for o, a in opts:
+        if o in ("-h", "--help"):
+            usage()
+            sys.exit()
+        elif o == "-t":
+            theme = a
+        elif o == "-s":
+            size = a.split('x')
+            width,height = int(size[0]), int(size[1])
+
+        elif o == "-x":
+            x = int(a)
+        elif o == "-y":
+            y = int(a)
+        elif o == "-c":
+            cmd = a
+        else:
+            #~ assert False, "unhandled option"
+            print "Error .. unhandled option"
+            usage()
+            sys.exit()
+
+    app = UI(x, y, cmd, theme, width, height)
+    app.run()

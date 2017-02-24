@@ -1,0 +1,10 @@
+[231839.731624] usb 3-5: device descriptor read/64, error -110
+[231839.994912] usb 3-5: new full-speed USB device number 11 using xhci_hcd
+[231845.154629] usb 3-5: device descriptor read/64, error -110
+[231860.420154] usb 3-5: device descriptor read/64, error -110
+[231860.686746] usb 3-5: new full-speed USB device number 12 using xhci_hcd
+[231865.699794] xhci_hcd 0000:00:14.0: Command completion event does not match command
+[231865.699801] xhci_hcd 0000:00:14.0: Timeout while waiting for setup device command
+[231870.912712] xhci_hcd 0000:00:14.0: Timeout while waiting for setup device command
+[231871.116010] usb 3-5: device not accepting address 12, error -62
+[231871.279367] usb 3-5: new full-speed USB device number 13 using xhci_hcd

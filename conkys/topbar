@@ -1,0 +1,33 @@
+background yes
+out_to_console yes
+#out_to_x no
+use_xft yes
+xftfont Dejavu Sans Mono:size=7.867
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+#own_window_transparent no
+own_window_type desktop
+#own_window_argb_visual yes
+#own_window_argb_value 160
+#own_window_hints undecorated,below,sticky,skip_taskbar
+double_buffer yes
+minimum_size 1915 16 
+maximum_width 1915
+draw_shades yes
+draw_outline no
+draw_graph_borders yes
+default_color 52B4BA
+default_shade_color black
+default_outline_color white
+alignment top_left
+gap_x 0
+gap_y -200
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale no
+
+TEXT
+%{A:/root/.conky/scripts/sysinfo.sh &:}[ System ]%{A}  [ Desktop: ${exec /root/.conky/scripts/get_desktop.sh} / 4 ]  %{A:/root/.conky/scripts/diskinfo.sh &:}%{A3:gnome-disks &:}[ Disks ]%{A}%{A}  %{A:/root/.conky/scripts/toggleLaunchbar.sh &:}[ LaunchBar: ]%{A} %{r}${if_existing /tmp/conkytoggle 1}%{A:/root/.conky/scripts/toggleconky.sh:} >> %{A}%{A3:brightness &:}%{A:/root/.conky/scripts/brightness_info.sh &:}[ Brightness: ${if_match ${exec /root/.conky/scripts/brightness.sh}<100} ${endif}${if_match ${exec /root/.conky/scripts/brightness.sh}<10} ${endif} ${exec /root/.conky/scripts/brightness.sh} % ]%{A}%{A}  %{A:/root/.conky/scripts/batinfo.sh &:}%{A3:gnome-control-center power &:}[ Battery : ${if_match ${exec /root/.conky/scripts/battery.sh}<100} ${endif}${if_match ${exec /root/.conky/scripts/battery.sh}<10} ${endif}${exec /root/.conky/scripts/battery.sh} % ]%{A}%{A}  %{A:/root/.conky/scripts/audioinfo.sh &:}%{A3:gnome-control-center sound &:}[ Audio: ${execi 1 amixer -M get Master | grep -om 1 '[[:digit:]]*%'} ]%{A}%{A}  %{A:/root/.conky/scripts/netinfo.sh &:}%{A3:gnome-control-center network &:}[ IP: ${addr wlp1s0} | Quality: ${wireless_link_qual_perc wlp1s0} % ]%{A}%{A}  %{A:/root/.conky/scripts/calendar.sh &:}[ Date : ${time %d/%m/%y | Time  %H:%M} ]%{A}  %{A:/root/.conky/scripts/notifications.sh &:}[ Notifications: ${execi 10 /root/.conky/scripts/totalNotif.sh} ]%{A}${else} %{A:/root/.conky/scripts/toggleconky.sh:} << %{A}%{A:/root/.conky/scripts/netinfo.sh &:}%{A3:gnome-control-center network &:}[ IP: ${addr wlp1s0} | Quality: ${wireless_link_qual_perc wlp1s0} % ]%{A}%{A}  %{A:/root/.conky/scripts/calendar.sh &:}[ Date : ${time %d/%m/%y | Time  %H:%M} ]%{A}  %{A:/root/.conky/scripts/notifications.sh &:}[ Notifications: ${execi 10 /root/.conky/scripts/totalNotif.sh} ]%{A}${endif}

@@ -1,0 +1,47 @@
+background yes
+use_xft yes
+xftfont Dejavu Sans Mono:size=7.867
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type normal
+own_window_class spWidget
+own_window_title htop
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 200 160
+maximum_width 200
+draw_shades yes
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+default_color 52B4BA
+default_shade_color black
+default_outline_color white
+alignment bottom_right
+gap_x 300
+gap_y 225
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale no
+
+lua_load /root/.conky/scripts/lua/script.lua
+lua_draw_hook_pre conky_main 200 162
+
+TEXT
+${voffset 20}
+${font sans-serif:bold:size=8}TOP PROCESSES ${hr 4}$font
+[ name ] $alignr  [ percentage ]
+${top_mem name 1}${alignr}${top mem 1} %
+${top_mem name 2}${alignr}${top mem 2} %
+${top_mem name 3}${alignr}${top mem 3} %
+${top_mem name 4}${alignr}${top mem 4} %
+${top_mem name 5}${alignr}${top mem 5} %
+${top_mem name 6}${alignr}${top mem 6} %
+${top_mem name 7}${alignr}${top mem 7} %
+${top_mem name 8}${alignr}${top mem 8} %
+${top_mem name 9}${alignr}${top mem 9} %
+${top_mem name 10}${alignr}${top mem 10} %

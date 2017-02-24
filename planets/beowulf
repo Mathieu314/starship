@@ -1,0 +1,11 @@
+lua_load /root/.conky/script.lua
+lua_draw_hook_pre conky_main 224 110
+
+TEXT
+${voffset 20}
+PLANET ${hr 3}
+Name: $alignr Beowulf
+Location: $alignr Sigma Draconis System
+Affiliation: $alignr Solarian League
+$alignr Republic of Beowulf
+Capital: $alignr Columbia

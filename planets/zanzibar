@@ -1,0 +1,9 @@
+lua_load /root/.conky/script.lua
+lua_draw_hook_pre conky_main 245 85
+
+TEXT
+${voffset 20}
+PLANET ${hr 3}
+Name: $alignr Zanzibar
+Location: $alignr Zanzibar System
+Affiliation: $alignr Caliphate of Zanzibar

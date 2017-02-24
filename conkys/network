@@ -1,0 +1,44 @@
+background yes
+use_xft yes
+xftfont Dejavu Sans Mono:size=7.867
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type normal
+own_window_class spWidget
+own_window_title network
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 200 200
+maximum_width 200
+draw_shades yes
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+default_color 52B4BA
+default_shade_color black
+default_outline_color white
+alignment bottom_right
+gap_x 20
+gap_y 180
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale no
+
+lua_load /root/.conky/scripts/lua/script.lua
+lua_draw_hook_pre conky_main 200 180
+
+TEXT
+${voffset 20}
+NETWORK ${hr 4}
+IP address: $alignr ${addr wlp1s0}
+Public IP : $alignr ${exec curl -s www.icanhazip.com}
+ESSID: $alignr ${wireless_essid wlp1s0}
+Connection quality: $alignr ${wireless_link_qual_perc wlp1s0}%
+${downspeedgraph wlp1s0}
+DLS:${downspeed wlp1s0} kb/s $alignr total: ${totaldown wlp1s0}
+${upspeedgraph wlp1s0}
+ULS:${upspeed wlp1s0} kb/s $alignr total: ${totalup wlp1s0}

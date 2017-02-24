@@ -1,0 +1,13 @@
+lua_load /root/.conky/script.lua
+lua_draw_hook_pre conky_main 179 117
+
+TEXT
+${voffset 20}
+SHIP ${hr 3}
+Name: $alignr HMS Manticore
+Type: $alignr Superdreadnoughts
+Affiliation: $alignr Star Kingdom of
+$alignr Manticore
+Mass: $alignr 6 515 500 tons
+Length: $alignr 1263 m
+Acceleration: $alignr 333.9 G

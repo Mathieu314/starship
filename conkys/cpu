@@ -1,0 +1,60 @@
+# **********************************************************************
+# "CPU Panel (8-core)" theme for Conky by Tony George (teejee2008@gmail.com)
+#
+# Webpage: http://teejeetech.blogspot.in/
+# **********************************************************************
+
+
+background yes
+double_buffer yes
+
+alignment top_left
+
+border_width 1
+cpu_avg_samples 2
+default_color 52B4BA
+default_outline_color white
+default_shade_color white
+draw_borders no
+draw_graph_borders yes
+draw_outline no
+draw_shades no
+
+gap_x 20
+gap_y 25
+net_avg_samples 2
+no_buffers yes
+out_to_console no
+out_to_stderr no
+extra_newline no
+
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+minimum_size 100 200
+maximum_width 300
+stippled_borders 0
+update_interval 1.0
+uppercase no
+use_spacer none
+
+show_graph_scale no
+show_graph_range no
+
+use_xft yes
+xftalpha 0.1
+xftfont Dejavu Sans Mono:size=8
+
+lua_load /root/.conky/scripts/lua/script.lua
+lua_draw_hook_pre conky_main 298 198
+
+TEXT
+${voffset 20}
+CPU ${if_match $cpu<10}${offset 7}${endif}${cpu} % ${cpubar cpu0 10,237} 
+${cpugraph cpu0 50,300}${voffset -13}
+${cpugraph cpu1 50,75}${cpugraph cpu2 50,75}${cpugraph cpu3 50,75}${cpugraph cpu4 50,75}${voffset -13}
+${cpugraph cpu5 50,75}${cpugraph cpu6 50,75}${cpugraph cpu7 50,75}${cpugraph cpu8 50,75}
+${voffset -104}${goto 10}1 ${goto 85}2 ${goto 160}3 ${goto 0} ${goto 235}4 ${voffset 50}${goto 10}5 ${goto 85}6 ${goto 160}7 ${goto 235}8
+${voffset -67}${goto 30}${freq_g (1)}GHz ${goto 105}${freq_g (2)}GHz ${goto 180}${freq_g (3)}GHz ${goto 255}${freq_g (4)}GHz ${voffset 50}${goto 30}${freq_g (5)}GHz ${goto 105}${freq_g (6)}GHz ${goto 180}${freq_g (7)}GHz ${goto 255}${freq_g (8)}GHz

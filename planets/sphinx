@@ -1,0 +1,15 @@
+lua_load /root/.conky/script.lua
+lua_draw_hook_pre conky_main 217 162
+
+TEXT
+${voffset 20}
+PLANET ${hr 3}
+Name: $alignr Sphinx
+Location: $alignr Manticore-A System
+Affiliation: $alignr Star Empire of
+$alignr Manticore
+Capital: $alignr Tillingham
+Population: $alignr 1.2 Billion humans
+$alignr ~ 12 Million treecats
+Diameter: $alignr 13.906 km
+Gravity: $alignr 1.35 G

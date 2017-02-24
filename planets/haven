@@ -1,0 +1,11 @@
+lua_load /root/.conky/script.lua
+lua_draw_hook_pre conky_main 217 110
+
+TEXT
+${voffset 20}
+PLANET ${hr 3}
+Name: $alignr Haven
+Location: $alignr Haven System
+Affiliation: $alignr Republic of Haven
+Capital: $alignr Nouveau Paris
+Population: $alignr several billion

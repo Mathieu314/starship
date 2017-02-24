@@ -1,0 +1,13 @@
+lua_load /root/.conky/script.lua
+lua_draw_hook_pre conky_main 203 135
+
+TEXT
+${voffset 20}
+PLANET ${hr 3}
+Name: $alignr Gryphon
+Location: $alignr Manticore-B System
+Affiliation: $alignr Star Empire of
+$alignr Manticore
+Population: $alignr 600 Million
+Diameter: $alignr 11.878 km
+Gravity: $alignr 1.05 G

@@ -1,0 +1,12 @@
+lua_load /root/.conky/script.lua
+lua_draw_hook_pre conky_main 230 124
+
+TEXT
+${voffset 20}
+PLANET ${hr 3}
+Name: $alignr Medusa
+Location: $alignr Basilisk System
+Affiliation: $alignr Star Empire of
+$alignr Manticore
+Population: $alignr 700 Million Medusans
+Gravity: $alignr 0.85 G

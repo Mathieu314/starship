@@ -1,0 +1,13 @@
+lua_load /root/.conky/script.lua
+lua_draw_hook_pre conky_main 203 135
+
+TEXT
+${voffset 20}
+SHIP ${hr 3}
+Name: $alignr HMS Ad Astra
+Type: $alignr Dreadnought
+Affiliation: $alignr Star Kingdom of
+$alignr Manticore
+Mass: $alignr 3 895 500 tons
+Length: $alignr 1064 m
+Acceleration: $alignr 360 G
