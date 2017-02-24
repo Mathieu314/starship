@@ -4,7 +4,9 @@
 
 ## Installation
 ### Download starship
+```bash
 git clone https://github.com/Mathieu314/starship ~/.conky/
+```
 
 ### Download specific programs
 - conky
